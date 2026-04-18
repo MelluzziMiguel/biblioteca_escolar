@@ -1,3 +1,5 @@
+package Model;
+
 public class Livro {
     private String titulo;
     private String autor;
@@ -5,11 +7,10 @@ public class Livro {
 
     public Livro(String titulo, String autor, int quantidade) {
         if (titulo == null || titulo.trim().isEmpty()) {
-            throw new IllegalArgumentException("Título não pode ser vazio.");
+            throw new IllegalArgumentException("Título inválido.");
         }
-
         if (quantidade < 0) {
-            throw new IllegalArgumentException("Quantidade não pode ser negativa.");
+            throw new IllegalArgumentException("Quantidade inválida.");
         }
 
         this.titulo = titulo;
@@ -25,14 +26,15 @@ public class Livro {
         return quantidade;
     }
 
-    public void emprestar() {
-        if (quantidade <= 0) {
-            throw new IllegalStateException("Livro indisponível para empréstimo.");
-        }
+    public boolean temDisponivel() {
+        return quantidade > 0;
+    }
+
+    public void diminuirQuantidade() {
         quantidade--;
     }
 
-    public void devolver() {
+    public void aumentarQuantidade() {
         quantidade++;
     }
 }
